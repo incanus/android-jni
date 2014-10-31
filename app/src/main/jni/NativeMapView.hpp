@@ -9,9 +9,9 @@
 
 #include <EGL/egl.h>
 
-#include <llmr/llmr.hpp>
+#include <mbgl/mbgl.hpp>
 
-namespace llmr {
+namespace mbgl {
 namespace android {
 
 extern jmethodID on_map_changed_id;
@@ -35,16 +35,16 @@ extern jclass tree_set_class;
 extern jmethodID tree_set_constructor_id;
 extern jmethodID tree_set_add_id;
 
-class LLMRView;
+class MBGLView;
 
 class NativeMapView {
-    friend class LLMRView;
+    friend class MBGLView;
 
 public:
     NativeMapView(JNIEnv* env, jobject obj, std::string default_style_json);
     ~NativeMapView();
 
-    llmr::Map* getMap() const {
+    mbgl::Map* getMap() const {
         return map;
     }
 
@@ -60,7 +60,9 @@ public:
     void start();
     void stop();
 
-    void notifyMapChange();
+    void notify_map_change(mbgl::MapChange change, mbgl::timestamp delay = 0);
+
+    void notify();
 
 private:
     EGLConfig chooseConfig(const EGLConfig configs[], EGLint num_configs,
@@ -72,8 +74,8 @@ private:
 
     ANativeWindow* window = nullptr;
 
-    llmr::Map* map = nullptr;
-    LLMRView* view = nullptr;
+    mbgl::Map* map = nullptr;
+    MBGLView* view = nullptr;
 
     EGLDisplay display = EGL_NO_DISPLAY;
     EGLSurface surface = EGL_NO_SURFACE;
@@ -85,12 +87,12 @@ private:
     std::string default_style_json;
 };
 
-class LLMRView: public llmr::View {
+class MBGLView: public mbgl::View {
 public:
-    LLMRView(NativeMapView* nativeView) :
+    MBGLView(NativeMapView* nativeView) :
             nativeView(nativeView) {
     }
-    virtual ~LLMRView() {
+    virtual ~MBGLView() {
     }
 
     void make_active() override;
@@ -98,13 +100,15 @@ public:
 
     void swap() override;
 
-    void notify_map_change() override;
+    void notify_map_change(mbgl::MapChange change, mbgl::timestamp delay = 0) override;
+
+    void notify() override;
 
 private:
     NativeMapView* nativeView = nullptr;
 };
 
 } // namespace android
-} // namespace llmr
+} // namespace mbgl
 
 #endif // MAP_VIEW_HPP
