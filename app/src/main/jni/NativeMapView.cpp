@@ -11,6 +11,20 @@
 #include "NativeMapView.hpp"
 
 namespace mbgl {
+namespace platform {
+
+std::string uppercase(const std::string &string) {
+    return string;
+}
+
+std::string lowercase(const std::string &string) {
+    return string;
+}
+
+} // namespace platform
+} // namespace mbgl
+
+namespace mbgl {
 namespace android {
 
 void log_egl_string(EGLDisplay display, EGLint name, const char* label) {
