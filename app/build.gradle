@@ -4,6 +4,8 @@ android {
     compileSdkVersion 21
     buildToolsVersion "20.0.0"
 
+    sourceSets.main.jni.srcDirs = []
+
     defaultConfig {
         applicationId "com.example.incanus.android"
         minSdkVersion 15

@@ -27,6 +27,7 @@ import android.widget.ZoomButtonsController;
 
 import com.almeros.android.multitouch.gesturedetectors.RotateGestureDetector;
 import com.almeros.android.multitouch.gesturedetectors.TwoFingerGestureDetector;
+import com.mapbox.mapboxgl.app.R;
 
 // Custom view that shows a Map
 // Based on SurfaceView as we use OpenGL ES to render

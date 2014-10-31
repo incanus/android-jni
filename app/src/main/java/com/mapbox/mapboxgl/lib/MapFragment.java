@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mapbox.mapboxgl.app.R;
+
 public class MapFragment extends Fragment {
 
     //
